@@ -1,0 +1,12 @@
+# Artefatos compilados
+out/
+*.class
+
+# Configurações de IDE
+.idea/
+.vscode/
+*.iml
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
