@@ -2,40 +2,52 @@
 
 Sistema Integrado do Agronegócio desenvolvido para o projeto de **Lógica de Programação e Algoritmos** do SENAI-SP.
 
-## Requisitos atendidos
+## Funcionalidades implementadas
 
-- Cadastro do volume de chuva dos 7 dias em um `double[7]`.
-- Cálculo da média semanal de pluviosidade.
-- Identificação do dia com maior índice de chuva.
-- Cadastro da umidade de 16 talhões em uma matriz `double[4][4]`.
-- Exibição formatada do mapa do campo.
-- Alertas para talhões com umidade abaixo de 30%.
-- Menu interativo com `do-while` e `switch-case`.
-- Entrada de dados via `Scanner`.
-- Dados mantidos somente em memória, sem banco de dados ou interface gráfica.
+- **RF01–RF03:** cadastro de chuva dos sete dias em array, média e maior índice; cadastro da matriz 4x4 de umidade; mapa e alertas; menu de terminal.
+- **RF04:** registro de semana agrícola com data, precipitação diária, média e total em `historico_chuvas.csv`, acrescentando registros sem sobrescrever semanas anteriores.
+- **RF05–RF07:** consulta de todo o histórico persistido, identificação da semana mais chuvosa e dashboard com acumulado, média semanal, semana mais seca e mais chuvosa e quantidade de semanas.
+- **RF08–RF09:** exportação dos 16 talhões para `mapa_umidade.csv` e `talhoes_classificados.csv`, com classificação automática: abaixo de 20% = Crítico; de 20% a 30% = Atenção; acima de 30% = Adequado.
+- **RF10:** relatório de irrigação que exibe apenas talhões Críticos ou em Atenção e informa a quantidade de alertas.
+- **RF11–RF12:** indicadores gerenciais do campo (média, talhões críticos e adequados, percentual que precisa de irrigação, talhão mais seco/úmido) e exportação para `relatorio_fazenda.txt`.
+
+As opções originais do menu foram preservadas (1–4); as opções 5–8 acrescentam histórico, semana mais chuvosa, dashboard e exportação gerencial. Os dados são mantidos em arrays/matrizes durante a execução e persistidos nos arquivos CSV/TXT descritos acima. Não há banco de dados ou interface gráfica.
 
 ## Requisitos técnicos
 
-- Java 11 ou superior (desenvolvimento validado com JDK 21; compatível com JDK 26).
-- Terminal/console.
+- Java 11 ou superior.
+- Entrada e interação via terminal com `Scanner`.
+- Bibliotecas padrão do Java; sem dependências externas.
 
 ## Como executar
 
 Na raiz do projeto:
 
 ```bash
-javac -d out src/AgroJava.java
+javac -Xlint:all -d out src/AgroJava.java
 java -cp out AgroJava
 ```
 
-Os valores de chuva devem ser informados em milímetros. Os valores de umidade devem estar entre 0% e 100%. O sistema rejeita entradas fora dos intervalos válidos.
+Na opção **1**, informe a data no formato `dd/MM/aaaa`, a chuva de segunda-feira a domingo em milímetros e a umidade de A1 a D4 em porcentagem. Chuvas não podem ser negativas e umidades devem estar entre 0% e 100%. O CSV de chuvas é acumulativo; os arquivos do mapa e do relatório representam o cadastro mais recente.
+
+## Testes
+
+Os testes de integração também são escritos em Java e executam a aplicação em um diretório temporário:
+
+```bash
+javac -Xlint:all -d out src/AgroJava.java
+javac -Xlint:all -cp out -d out tests/AgroJavaTest.java
+java -cp out AgroJavaTest
+```
+
+A suíte percorre cadastro, mapa, alertas, histórico, dashboard e exportação e verifica que o histórico pode ser consultado após reiniciar o programa.
 
 ## Estrutura
 
 ```text
 AgroJava/
-├── src/
-│   └── AgroJava.java
-├── .gitignore
-└── README.md
+├── src/AgroJava.java
+├── tests/AgroJavaTest.java
+├── README.md
+└── .gitignore
 ```
