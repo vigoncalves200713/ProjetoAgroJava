@@ -32,15 +32,22 @@ Na opção **1**, informe a data no formato `dd/MM/aaaa`, a chuva de segunda-fei
 
 ## Testes
 
-Execute `./test.sh`. A suíte compila o projeto, percorre cadastro, mapa, alertas, histórico, dashboard e exportação e verifica que o histórico pode ser consultado após reiniciar o programa. Os arquivos de teste são criados em um diretório temporário.
+Os testes de integração também são escritos em Java e executam a aplicação em um diretório temporário:
+
+```bash
+javac -Xlint:all -d out src/AgroJava.java
+javac -Xlint:all -cp out -d out tests/AgroJavaTest.java
+java -cp out AgroJavaTest
+```
+
+A suíte percorre cadastro, mapa, alertas, histórico, dashboard e exportação e verifica que o histórico pode ser consultado após reiniciar o programa.
 
 ## Estrutura
 
 ```text
 AgroJava/
 ├── src/AgroJava.java
-├── test.sh
-├── test-input.txt
+├── tests/AgroJavaTest.java
 ├── README.md
 └── .gitignore
 ```
